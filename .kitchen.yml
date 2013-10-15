@@ -13,5 +13,5 @@ platforms:
 
 suites:
 - name: default
-  run_list: ["recipe[sipp-cookbook]"]
+  run_list: ["recipe[sipp]"]
   attributes: {}
