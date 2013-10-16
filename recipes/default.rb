@@ -1,20 +1,22 @@
-%w{build-essential openssl libssl-dev libpcap-dev libncurses5-dev}.each { |p| package p }
+node['sipp']['build_dependencies'].each { |p| package p }
 
-remote_file '/tmp/sipp-3.3.tar.gz' do
-  source "http://sourceforge.net/projects/sipp/files/sipp/3.3/sipp-3.3.tar.gz"
+version = node['sipp']['version']
+
+remote_file "#{Chef::Config[:file_cache_path]}/sipp-#{version}.tar.gz" do
+  source "http://sourceforge.net/projects/sipp/files/sipp/#{version}/sipp-#{version}.tar.gz"
   checksum "8c1d513423f9dabee799e738b737e311"
 end
 
-cookbook_file '/tmp/sipp_dyn_pcap.diff' do
+cookbook_file "#{Chef::Config[:file_cache_path]}/sipp_dyn_pcap.diff" do
   source 'sipp_dyn_pcap.diff'
 end
 
 script "compile sipp" do
   interpreter "/bin/bash"
-  cwd "/tmp"
+  cwd Chef::Config[:file_cache_path]
   code <<-EOF
-  tar -xf sipp-3.3.tar.gz
-  cd sipp-3.3
+  tar -xf sipp-#{version}.tar.gz
+  cd sipp-#{version}
   patch < ../sipp_dyn_pcap.diff
   make pcapplay
   cp sipp /usr/local/bin
