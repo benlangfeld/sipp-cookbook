@@ -2,6 +2,8 @@ node['sipp']['build_dependencies'].each { |p| package p }
 
 version = node['sipp']['version']
 
+directory Chef::Config[:file_cache_path]
+
 remote_file "#{Chef::Config[:file_cache_path]}/sipp-#{version}.tar.gz" do
   source "http://sourceforge.net/projects/sipp/files/sipp/#{version}/sipp-#{version}.tar.gz"
   checksum "8c1d513423f9dabee799e738b737e311"
