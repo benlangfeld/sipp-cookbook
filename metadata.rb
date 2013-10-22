@@ -3,7 +3,7 @@ maintainer        "Mojo Lingo LLC"
 maintainer_email  "ops@mojolingo.com"
 license           "MIT"
 description       "Patches and Installs the SIPp load testing tool"
-version           '1.0.0'
+version           '1.0.1'
 
 recipe            "sipp", "Fetches, patches, and installs SIPp"
 
